@@ -1,0 +1,24 @@
+@page
+@using Cyberjuice.Web.Pages.Departments
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model EditModalModel
+@using Cyberjuice.Localization
+@inject IHtmlLocalizer<CyberjuiceResource> L
+@{
+    Layout = null;
+}
+
+<form asp-page="/Departments/EditModal">
+    <input hidden asp-for="Id" />
+    
+    <abp-modal>
+        <abp-modal-header title="@L["Edit"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Department.Name" />
+            <abp-input asp-for="Department.Description" />
+            <abp-input asp-for="Department.EmployeeCount" />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form> 

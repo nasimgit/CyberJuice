@@ -1,0 +1,19 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using Cyberjuice.Localization
+@model Cyberjuice.Web.Pages.Companies.CreateModalModel
+@inject IHtmlLocalizer<CyberjuiceResource> L
+@{
+    Layout = null;
+}
+
+<form asp-page="/Companies/CreateModal">
+    <abp-modal>
+        <abp-modal-header title="@L["New Company"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Company.Name" />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form> 

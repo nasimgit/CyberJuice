@@ -1,0 +1,26 @@
+@page "/companies"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Cyberjuice.Localization
+@inject IHtmlLocalizer<CyberjuiceResource> L
+@inject IAuthorizationService AuthorizationService
+@{
+	ViewData["Title"] = "Companies";
+}
+
+@section scripts {
+	<abp-script src="/Pages/Companies/Index.js" />
+}
+
+<abp-card>
+	<abp-card-header class="d-flex justify-content-between align-items-center">
+		<h2 class="m-0">@L["Companies"]</h2> &nbsp;
+		<button id="NewWorkspaceButton" class="btn btn-primary">
+			<i class="fa fa-plus"></i>
+			<span class="label">@L["New Company"]</span>
+		</button>
+	</abp-card-header>
+	<abp-card-body>
+		<abp-table striped-rows="true" id="CompaniesTable"></abp-table>
+	</abp-card-body>
+</abp-card>

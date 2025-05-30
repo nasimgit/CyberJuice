@@ -1,0 +1,57 @@
+@page
+@using Cyberjuice.Web.Pages.Employees
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model EditModalModel
+@using Cyberjuice.Localization
+@inject IHtmlLocalizer<CyberjuiceResource> L
+@{
+	Layout = null;
+}
+
+<form asp-page="/Employees/EditModal">
+	<input hidden asp-for="Id" />
+
+	<abp-modal>
+		<abp-modal-header title="@L["Edit"].Value"></abp-modal-header>
+		<abp-modal-body>
+			<div class="row">
+				<div class="col-md-6">
+					<abp-input asp-for="Employee.FirstName" />
+				</div>
+				<div class="col-md-6">
+					<abp-input asp-for="Employee.LastName" />
+				</div>
+			</div>
+			<abp-input asp-for="Employee.Email" />
+			<abp-input asp-for="Employee.PhoneNumber" />
+			<abp-input asp-for="Employee.DateOfBirth" type="date" />
+
+			@if (Model.Companies.Count != 0)
+			{
+				<div class="form-group">
+					<label>@L["Companies"]</label>
+					<div class="d-flex flex-nowrap overflow-auto">
+						@for (int i = 0; i < Model.Companies.Count; i++)
+						{
+							<div class="form-check form-check-inline me-3">
+								<input type="checkbox"
+									   name="Employee.CompanyIds"
+									   value="@Model.Companies[i].Value"
+									   class="form-check-input"
+									   id="company_edit_@i"
+								@(Model.Employee.CompanyIds.Contains(Guid.Parse(Model.Companies[i].Value)) ? "checked" : "") />
+								<label class="form-check-label" for="company_edit_@i">
+									@Model.Companies[i].Text
+								</label>
+							</div>
+						}
+					</div>
+					<span class="text-danger field-validation-valid" data-valmsg-for="Employee.CompanyIds" data-valmsg-replace="true"></span>
+				</div>
+			}
+
+		</abp-modal-body>
+		<abp-modal-footer buttons="@(AbpModalButtons.Cancel | AbpModalButtons.Save)"></abp-modal-footer>
+	</abp-modal>
+</form> 

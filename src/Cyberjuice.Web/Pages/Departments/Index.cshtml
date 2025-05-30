@@ -1,0 +1,32 @@
+@page
+@using Cyberjuice.Permissions
+@using Cyberjuice.Web.Pages.Departments
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Cyberjuice.Localization
+@inject IHtmlLocalizer<CyberjuiceResource> L
+@inject IAuthorizationService AuthorizationService
+@model IndexModel
+@{
+    ViewData["Title"] = "Departments";
+}
+
+@section scripts {
+    <abp-script src="/Pages/Departments/Index.js" />
+}
+
+<abp-card>
+    <abp-card-header class="d-flex justify-content-between align-items-center">
+        <h2 class="m-0">@L["Departments"]</h2> &nbsp;
+        @if (await AuthorizationService.IsGrantedAsync(CyberjuicePermissions.Departments.Create))
+        {
+            <button id="NewDepartmentButton" class="btn btn-primary">
+                <i class="fa fa-plus"></i>
+                <span class="label">@L["NewDepartment"]</span>
+            </button>
+        }
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="DepartmentsTable"></abp-table>
+    </abp-card-body>
+</abp-card> 

@@ -1,0 +1,15 @@
+﻿{
+  "applications": {
+    "Cyberjuice.Web": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44336",
+      "path": "../../../src/Cyberjuice.Web/Cyberjuice.Web.csproj",
+      "kubernetesService": ".*-web$",
+      "healthCheckEndpoint": "/health-status",
+      "healthUiEndpoint": "/health-ui",
+      "execution": {
+        "order": 2
+      }
+    }
+  }
+}
