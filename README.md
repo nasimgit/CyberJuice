@@ -1,8 +1,8 @@
-﻿# Cyberjuice - Multi-Company ABP Application
+﻿# Cyberjuice - Multi-Company Application
 
 ## About this solution
 
-This is a layered startup solution based on [Domain Driven Design (DDD)](https://abp.io/docs/latest/framework/architecture/domain-driven-design) practises with **Multi-Company Architecture**. All the fundamental ABP modules are already installed. Check the [Application Startup Template](https://abp.io/docs/latest/solution-templates/layered-web-application) documentation for more info.
+As part of the Cyberjuice dev team, I implemented a scalable solution using Domain-Driven Design (DDD) principles to support multi-company access. This allows one email account to manage multiple companies with isolated data and roles—without affecting existing users.
 
 ## Multi-Company Architecture
 
@@ -33,16 +33,8 @@ public class Employee : FullAuditedAggregateRoot<Guid>
     // ... other properties
 
     // Navigation property for many-to-many relationship
-    public virtual ICollection<CompanyEmployee> CompanyEmployees { get; set; } = new List<CompanyEmployee>();
+    public virtual List<Company> Companies { get; set; } = []
 
-    public void UpdateCompanies(IEnumerable<Guid> companyIds)
-    {
-        CompanyEmployees.Clear();
-        foreach (var companyId in companyIds)
-        {
-            CompanyEmployees.Add(new CompanyEmployee(Id, companyId));
-        }
-    }
 }
 ```
 
@@ -302,14 +294,6 @@ var queryable = (await _employeeRepository.GetQueryableAsync())
 4. **Company-Specific Departments**: Each company has its own departments
 5. **DDD Compliance**: Proper domain modeling with aggregate roots and domain services
 
-### Architecture Patterns Used
-
-- **Multi-Tenancy Pattern**: Company-based data isolation
-- **Domain Driven Design**: Aggregate roots, domain services, and business logic encapsulation
-- **Repository Pattern**: Data access abstraction
-- **Middleware Pattern**: Request processing pipeline
-- **Strategy Pattern**: Multiple company resolution strategies
-
 ## Pre-requirements
 
 * [.NET9.0+ SDK](https://dotnet.microsoft.com/download/dotnet)
@@ -340,9 +324,3 @@ This is a layered monolith application that consists of the following applicatio
 
 * `Cyberjuice.DbMigrator`: Console application for database migrations and seeding
 * `Cyberjuice.Web`: ASP.NET Core MVC / Razor Pages web application
-
-## Additional resources
-
-* [Web Application Development Tutorial](https://abp.io/docs/latest/tutorials/book-store/part-1)
-* [Application Startup Template](https://abp.io/docs/latest/startup-templates/application/index)
-* [ABP Framework Documentation](https://docs.abp.io/)
